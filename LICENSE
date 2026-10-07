@@ -1,21 +1,15 @@
-MIT License
-
 Copyright (c) 2026 Beigu
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This is a Source-Available license, NOT an OSI-approved open-source license.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Permission is granted to any person to view, download, study, modify and redistribute the source code of this mod freely, provided that:
+1. The copyright notice and this license are preserved.
+2. Modified source code is distributed under this same license.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Restrictions on compiled binaries (JAR):
+- You may build the source code into compiled JAR files, and share these JARs only in private, non-public contexts (e.g. private chat, small private friend groups).
+- YOU ARE NOT PERMITTED to upload, host, mirror, publish or redistribute the compiled JAR publicly on any public platform, including but not limited to Modrinth, CurseForge, GitHub releases, file hosting websites, forums, public Discord channels.
+- Public distribution of compiled JAR requires explicit written permission from the copyright holder.
+
+No commercial use without written permission.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
