@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom' version '1.11-SNAPSHOT' apply false
+    id 'dev.architectury.loom' version '1.5.391' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
 }
@@ -24,6 +24,24 @@ subprojects {
     }
 
     repositories {
+        maven {
+            name = 'MavenCentralLWJGL'
+            url = 'https://maven.aliyun.com/repository/central/'
+            content { includeGroup 'org.lwjgl' }
+        }
+        maven {
+            name = 'MavenCentralLWJGLFallback'
+            url = 'https://repo.maven.apache.org/maven2/'
+            content { includeGroup 'org.lwjgl' }
+        }
+        maven { name = 'AliyunPublic'; url = 'https://maven.aliyun.com/repository/public/' }
+        maven { name = 'AliyunGoogle'; url = 'https://maven.aliyun.com/repository/google/' }
+        maven { name = 'LoomMinecraftCache'; url = uri("$rootProject.projectDir/.gradle/loom-cache/minecraftMaven") }
+        mavenCentral()
+        maven { name = 'Forge'; url = 'https://maven.minecraftforge.net/' }
+        maven { name = 'Architectury'; url = 'https://maven.architectury.dev/' }
+        maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
+        maven { name = 'MinecraftLibraries'; url = 'https://bmclapi2.bangbang93.com/maven/' }
         // Add repositories to retrieve artifacts from in here.
         // You should only use this when depending on other mods because
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -33,7 +51,7 @@ subprojects {
 
     dependencies {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-        mappings "net.fabricmc:yarn:$rootProject.yarn_mappings:v2"
+        mappings loom.officialMojangMappings()
     }
 
     java {
@@ -48,6 +66,9 @@ subprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 17
+        // Emit all compiler diagnostics so the full migration error set is visible.
+        it.options.compilerArgs.add('-Xmaxerrs')
+        it.options.compilerArgs.add('800')
     }
 
     // Configure Maven publishing.

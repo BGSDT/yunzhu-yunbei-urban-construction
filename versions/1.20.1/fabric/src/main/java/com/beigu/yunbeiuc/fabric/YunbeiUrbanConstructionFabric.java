@@ -1,37 +1,31 @@
 package com.beigu.yunbeiuc.fabric;
 
 import com.beigu.yunbeiuc.YunbeiUrbanConstruction;
-import com.beigu.yunbeiuc.network.ChatCommandHandler;
 import com.beigu.yunbeiuc.util.CustomFontManager;
 import com.beigu.yunbeiuc.util.FlagLoader;
+import com.beigu.yunbeiuc.util.TrafficLightsPatternPresetLoader;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 
 public final class YunbeiUrbanConstructionFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         YunbeiUrbanConstruction.init();
-        ModCreativeTabEntries.register();
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            ChatCommandHandler.register(dispatcher);
-        });
-
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(
                 new SimpleSynchronousResourceReloadListener() {
                     @Override
-                    public Identifier getFabricId() {
-                        return new Identifier(YunbeiUrbanConstruction.MOD_ID, "flag_loader");
+                    public ResourceLocation getFabricId() {
+                        return new ResourceLocation(YunbeiUrbanConstruction.MOD_ID, "flag_loader");
                     }
 
                     @Override
-                    public void reload(ResourceManager manager) {
+                    public void onResourceManagerReload(net.minecraft.server.packs.resources.ResourceManager manager) {
                         FlagLoader.loadFlags(manager);
+                        TrafficLightsPatternPresetLoader.loadPresets(manager);
                         CustomFontManager.getInstance().onResourceReload();
                     }
                 }

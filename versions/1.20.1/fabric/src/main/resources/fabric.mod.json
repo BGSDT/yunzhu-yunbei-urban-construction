@@ -3,7 +3,7 @@
   "id": "yunbeiuc",
   "version": "${version}",
   "name": "Yunbei Urban Construction",
-  "description": "Let's use the mod to decorate your city!",
+  "description": "Yunbei Urban Construction - Yunzhu Workshop reduced build (municipal facilities only). Ported & trimmed by DeepSeek V4.1; mod verification by Beigu.",
   "authors": [
     "北咕",
     "jstxjf_",
@@ -11,12 +11,12 @@
     "Tizhengxie",
     "NanGuaQWQ",
     "Yomi_307",
-    "空悦星海"
+    "FrostyHulan"
   ],
   "contact": {
     "homepage": "https://bgsdt.github.io/",
-    "sources": "https://github.com/BGSDT/yunbei-urban-construction",
-    "issues": "https://github.com/BGSDT/yunbei-urban-construction/issues"
+    "sources": "https://github.com/BGSDT/yunzhu-yunbei-urban-construction",
+    "issues": "https://github.com/BGSDT/yunzhu-yunbei-urban-construction/issues"
   },
   "license": "MIT",
   "icon": "assets/yunbeiuc/icon.png",
@@ -33,15 +33,15 @@
     "yunbeiuc.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.10",
+    "fabricloader": ">=0.15.11",
     "minecraft": "1.20.1",
     "java": ">=17",
-    "architectury": ">=9.1.10",
+    "architectury": ">=9.2.14",
     "fabric-api": "*"
   },
   "suggests": {
     "another-mod": "*",
-    "modmenu": ">=7.1.0"
+    "modmenu": ">=3.2.5"
   },
   "custom": {
     "modmenu": {

@@ -2,7 +2,6 @@ package com.beigu.yunbeiuc.forge;
 
 import com.beigu.yunbeiuc.YunbeiUrbanConstruction;
 import com.beigu.yunbeiuc.forge.client.YunbeiUrbanConstructionForgeClient;
-import com.beigu.yunbeiuc.network.ChatCommandHandler;
 import dev.architectury.platform.forge.EventBuses;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -17,14 +16,7 @@ public final class YunbeiUrbanConstructionForge {
         EventBuses.registerModEventBus(YunbeiUrbanConstruction.MOD_ID, modEventBus);
         YunbeiUrbanConstruction.init();
 
-        modEventBus.register(ModCreativeTabEntries.class);
 
         modEventBus.addListener(YunbeiUrbanConstructionForgeClient::onClientSetup);
-
-        MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
-    }
-
-    private void onRegisterCommands(RegisterCommandsEvent event) {
-        ChatCommandHandler.register(event.getDispatcher());
     }
 }

@@ -1,16 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
-issueTrackerURL = "https://github.com/BGSDT/yunbei-urban-construction/issues"
+issueTrackerURL = "https://github.com/BGSDT/yunzhu-yunbei-urban-construction/issues"
 license = "MIT"
 
 [[mods]]
 modId = "yunbeiuc"
 version = "${version}"
 displayName = "Yunbei Urban Construction"
-authors = "北咕, jstxjf_, 潇湘-迷蝎, Tizhengxie, NanGuaQWQ, Yomi_307, 空悦星海"
+authors = "北咕, jstxjf_, 潇湘-迷蝎, Tizhengxie, NanGuaQWQ, Yomi_307, FrostyHulan"
 logoFile = "icon.png"
 description = '''
-Let's use the mod to decorate your city!
+Yunbei Urban Construction - Yunzhu Workshop reduced build (municipal facilities only).
+Ported & trimmed by DeepSeek V4.1; mod verification by Beigu.
 '''
 
 [[dependencies.yunbeiuc]]
@@ -30,6 +31,6 @@ side = "BOTH"
 [[dependencies.yunbeiuc]]
 modId = "architectury"
 mandatory = true
-versionRange = "[9.1.10,)"
+versionRange = "[9.2.14,)"
 ordering = "AFTER"
 side = "BOTH"

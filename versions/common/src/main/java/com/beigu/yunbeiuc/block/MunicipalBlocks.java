@@ -1,0 +1,206 @@
+package com.beigu.yunbeiuc.block;
+
+import com.beigu.yunbeiuc.block.custom.*;
+import com.beigu.yunbeiuc.block.custom.anti.AntiGlareNet;
+import com.beigu.yunbeiuc.block.custom.anti.AntiGlareNetPole;
+import com.beigu.yunbeiuc.block.custom.anti.AntiGlareVersion;
+import com.beigu.yunbeiuc.block.custom.barrier.*;
+import com.beigu.yunbeiuc.block.custom.gantry.*;
+import com.beigu.yunbeiuc.block.custom.gate.BarrierGate1Main;
+import com.beigu.yunbeiuc.block.custom.gate.BarrierGate1MainSlab;
+import com.beigu.yunbeiuc.block.custom.gate.BarrierGate1PoleHorizontal;
+import com.beigu.yunbeiuc.block.custom.gate.BarrierGate1PoleLongitudinal;
+import com.beigu.yunbeiuc.block.custom.instrument.*;
+import com.beigu.yunbeiuc.block.custom.traffic.TrafficLightsBlock;
+import com.beigu.yunbeiuc.block.custom.pole.*;
+import com.beigu.yunbeiuc.block.custom.railings.RoadRailings;
+import com.beigu.yunbeiuc.block.custom.railings.RoadRailingsOblique;
+import com.beigu.yunbeiuc.block.custom.railings.RoadRailingsPole;
+import com.beigu.yunbeiuc.block.custom.rubbish.RubbishBinGrayGreen;
+import com.beigu.yunbeiuc.block.custom.rubbish.RubbishBinWhite;
+import com.beigu.yunbeiuc.block.custom.barrier.SoundBarrier1;
+import com.beigu.yunbeiuc.block.custom.barrier.SoundBarrier2;
+import com.beigu.yunbeiuc.block.custom.waring.WarningNetwork;
+import com.beigu.yunbeiuc.block.custom.waring.WarningNetworkPole;
+import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
+import com.beigu.yunbeiuc.api.mapper.VersionServices;
+
+import com.beigu.yunbeiuc.YunbeiUrbanConstruction;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+
+public class MunicipalBlocks {
+public static final DeferredRegister<Block> BLOCKS = VersionServices.registries().blocks(YunbeiUrbanConstruction.MOD_ID);
+    public static final RegistrySupplier<Block> ROAD_POLE_FOUNDATIONS = BLOCKS.register("road_pole_foundations", () -> new RoadPoleFoundations(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_FOUNDATIONS_SLAB = BLOCKS.register("road_pole_foundations_slab", () -> new RoadPoleFoundationsSlab(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LONGITUDINAL = BLOCKS.register("road_pole_longitudinal", () -> new RoadPoleLongitudinal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_HORIZONTAL = BLOCKS.register("road_pole_horizontal", () -> new RoadPoleHorizontal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_TSHAPE = BLOCKS.register("road_pole_tshape", () -> new RoadPoleHorizontal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_TEXT_DISPLAY = BLOCKS.register("road_pole_text_display", () -> new RoadPoleTextDisplay(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LED = BLOCKS.register("road_pole_led", () -> new RoadPoleLed(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_FLAG = BLOCKS.register("road_pole_flag", () -> new RoadPoleFlag(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LIGHT_FOUNDATIONS = BLOCKS.register("road_pole_light_foundations", () -> new RoadPoleLightFoundations(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LIGHT_FOUNDATIONS_SLAB = BLOCKS.register("road_pole_light_foundations_slab", () -> new RoadPoleLightFoundationsSlab(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LIGHT_LONGITUDINAL = BLOCKS.register("road_pole_light_longitudinal", () -> new RoadPoleLightLongitudinal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LIGHT_BRANCH_1 = BLOCKS.register("road_pole_light_branch_1", () -> new RoadPoleLightBranch(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LIGHT_BRANCH_2 = BLOCKS.register("road_pole_light_branch_2", () -> new RoadPoleLightBranch(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_POLE_LIGHT_BRANCH_3 = BLOCKS.register("road_pole_light_branch_3", () -> new RoadPoleLightBranch(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_LIGHT_HIGH_MAST = BLOCKS.register("road_light_high_mast", () -> new RoadLightHighMast(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_LIGHT_1 = BLOCKS.register("road_light_1", () -> new RoadLight(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_LIGHT_2 = BLOCKS.register("road_light_2", () -> new RoadLight(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_SOLAR_PANEL = BLOCKS.register("road_solar_panel", () -> new RoadSolarPanel(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> ROAD_DETECTION_CAMERA = BLOCKS.register("road_detection_camera", () -> new RoadDetectionCamera(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ROAD_LIGHTING_LAMP = BLOCKS.register("road_lighting_lamp", () -> new RoadLightingLamp(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ROAD_RADAR_SPEED_DETECTOR = BLOCKS.register("road_radar_speed_detector", () -> new RoadRadarSpeedDetector(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_GRAY_VERTICAL = BLOCKS.register("traffic_lights_gray_vertical", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_BLACK_VERTICAL = BLOCKS.register("traffic_lights_black_vertical", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_YELLOW_VERTICAL = BLOCKS.register("traffic_lights_yellow_vertical", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_GRAY_HORIZONTAL = BLOCKS.register("traffic_lights_gray_horizontal", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_BLACK_HORIZONTAL = BLOCKS.register("traffic_lights_black_horizontal", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_GRAY_SINGLE_HORIZONTAL = BLOCKS.register("traffic_lights_gray_single_horizontal", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_BLACK_SINGLE_HORIZONTAL = BLOCKS.register("traffic_lights_black_single_horizontal", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_GRAY_SINGLE_VERTICAL = BLOCKS.register("traffic_lights_gray_single_vertical", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_BLACK_SINGLE_VERTICAL = BLOCKS.register("traffic_lights_black_single_vertical", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_FOGGY = BLOCKS.register("traffic_lights_foggy", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_GRAY_SHANGHAI = BLOCKS.register("traffic_lights_gray_shanghai", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_BLACK_SHANGHAI = BLOCKS.register("traffic_lights_black_shanghai", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_COUNTDOWN_TIMER = BLOCKS.register("traffic_lights_countdown_timer", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_PAVEMENT_GRAY = BLOCKS.register("traffic_lights_pavement_gray", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_PAVEMENT_BLACK = BLOCKS.register("traffic_lights_pavement_black", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_PAVEMENT_INTEGRATION_GRAY = BLOCKS.register("traffic_lights_pavement_integration_gray", () -> new com.beigu.yunbeiuc.block.custom.traffic.TrafficLightsPavementIntegrationBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_PAVEMENT_INTEGRATION_BLACK = BLOCKS.register("traffic_lights_pavement_integration_black", () -> new com.beigu.yunbeiuc.block.custom.traffic.TrafficLightsPavementIntegrationBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_GREEN_TAIPEI = BLOCKS.register("traffic_lights_green_taipei", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> TRAFFIC_LIGHTS_PAVEMENT_GREEN_TAIPEI = BLOCKS.register("traffic_lights_pavement_green_taipei", () -> new TrafficLightsBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).lightLevel(state -> 15).requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> TRAFFIC_CONE = BLOCKS.register("traffic_cone", () -> new TrafficCone(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ROAD_COLLISION_BARREL = BLOCKS.register("road_collision_barrel", () -> new RoadCollisionBarrel(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> WATER_SAFETY_BARRIER_RED = BLOCKS.register("water_safety_barrier_red", () -> new WaterSafetyBarrier(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> SPEED_BUMP = BLOCKS.register("speed_bump", () -> new SpeedBump(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> VIBRATION_MARKING_LINE = BLOCKS.register("vibration_marking_line", () -> new VibrationMarkingLine(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> PARKING_SPACE_BARRIER = BLOCKS.register("parking_space_barrier", () -> new ParkingSpaceBarrier(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> GANTRY_FRAME_SIDE = BLOCKS.register("gantry_frame_side", () -> new GantryFrameSide(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_CONNECTION = BLOCKS.register("gantry_frame_connection", () -> new GantryFrameConnection(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_MAIN = BLOCKS.register("gantry_frame_main", () -> new GantryFrameMain(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_RAILING = BLOCKS.register("gantry_frame_railing", () -> new GantryFrameRailing(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_LADDER = BLOCKS.register("gantry_frame_ladder", () -> new GantryFrameLadder(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_LED_SIDE = BLOCKS.register("gantry_frame_led_side", () -> new GantryFrameLedSide(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_LED_MAIN = BLOCKS.register("gantry_frame_led_main", () -> new GantryFrameLedMain(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_LED = BLOCKS.register("gantry_frame_led", () -> new GantryFrameLed(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> GANTRY_FRAME_DETECTION_CAMERA = BLOCKS.register("gantry_frame_detection_camera", () -> new GantryFrameDetectionCamera(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_LIGHTING_LAMP = BLOCKS.register("gantry_frame_lighting_lamp", () -> new GantryFrameLightingLamp(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> GANTRY_FRAME_RADAR_SPEED_DETECTOR = BLOCKS.register("gantry_frame_radar_speed_detector", () -> new GantryFrameRadarSpeedDetector(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> WARNING_NETWORK = BLOCKS.register("warning_network", () -> new WarningNetwork(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> WARNING_NETWORK_POLE = BLOCKS.register("warning_network_pole", () -> new WarningNetworkPole(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> ANTI_GLARE_NET = BLOCKS.register("anti_glare_net", () -> new AntiGlareNet(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ANTI_GLARE_NET_POLE = BLOCKS.register("anti_glare_net_pole", () -> new AntiGlareNetPole(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ANTI_GLARE_VERSION = BLOCKS.register("anti_glare_version", () -> new AntiGlareVersion(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER = BLOCKS.register("traffic_barrier", () -> new TrafficBarrierBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_YELLOW_DOUBLE = BLOCKS.register("traffic_barrier_yellow_double", () -> new TrafficBarrierDoubleBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_YELLOW = BLOCKS.register("traffic_barrier_yellow", () -> new TrafficBarrierBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_RED = BLOCKS.register("traffic_barrier_red", () -> new TrafficBarrierBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_RED_DOUBLE = BLOCKS.register("traffic_barrier_red_double", () -> new TrafficBarrierDoubleBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_OBLIQUE = BLOCKS.register("traffic_barrier_oblique", () -> new TrafficBarrierObliqueBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY = BLOCKS.register("traffic_barrier_gray", () -> new TrafficBarrierGrayBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_OBLIQUE = BLOCKS.register("traffic_barrier_gray_oblique", () -> new TrafficBarrierGrayObliqueBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_RED = BLOCKS.register("traffic_barrier_gray_red", () -> new TrafficBarrierGrayBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_RED_OBLIQUE = BLOCKS.register("traffic_barrier_gray_red_oblique", () -> new TrafficBarrierObliqueBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_YELLOW = BLOCKS.register("traffic_barrier_gray_yellow", () -> new TrafficBarrierGrayBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_YELLOW_OBLIQUE = BLOCKS.register("traffic_barrier_gray_yellow_oblique", () -> new TrafficBarrierObliqueBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_SLANT = BLOCKS.register("traffic_barrier_gray_slant", () -> new TrafficBarrierGraySlantBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_SLANT_YELLOW = BLOCKS.register("traffic_barrier_gray_slant_yellow", () -> new TrafficBarrierGraySlantBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_SLANT_RED = BLOCKS.register("traffic_barrier_gray_slant_red", () -> new TrafficBarrierGraySlantBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> TRAFFIC_BARRIER_GRAY_SLANT_OBLIQUE = BLOCKS.register("traffic_barrier_gray_slant_oblique", () -> new TrafficBarrierGraySlantBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> REFLECTIVE_SIGN_YELLOW_ALL_1 = BLOCKS.register("reflective_sign_yellow_all_1", () -> new ReflectiveSign(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> REFLECTIVE_SIGN_YELLOW_ALL_2 = BLOCKS.register("reflective_sign_yellow_all_2", () -> new ReflectiveSign(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> REFLECTIVE_SIGN_RED_ALL_1 = BLOCKS.register("reflective_sign_red_all_1", () -> new ReflectiveSign(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> REFLECTIVE_SIGN_RED_ALL_2 = BLOCKS.register("reflective_sign_red_all_2", () -> new ReflectiveSign(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+
+    public static final RegistrySupplier<Block> SOUND_BARRIER_1_WHITE_NORMAL = BLOCKS.register("sound_barrier_1_white_normal", () -> new SoundBarrier1(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_1_WHITE_TB = BLOCKS.register("sound_barrier_1_white_tb", () -> new SoundBarrier1(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_1_BLUE_NORMAL = BLOCKS.register("sound_barrier_1_blue_normal", () -> new SoundBarrier1(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_1_BLUE_TB = BLOCKS.register("sound_barrier_1_blue_tb", () -> new SoundBarrier1(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_1_GREEN_NORMAL = BLOCKS.register("sound_barrier_1_green_normal", () -> new SoundBarrier1(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_1_GREEN_TB = BLOCKS.register("sound_barrier_1_green_tb", () -> new SoundBarrier1(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_2_NORMAL = BLOCKS.register("sound_barrier_2_normal", () -> new SoundBarrier2(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_2_TB = BLOCKS.register("sound_barrier_2_tb", () -> new SoundBarrier2(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_3_WHITE_NORMAL = BLOCKS.register("sound_barrier_3_white_normal", () -> new SoundBarrier2(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_3_WHITE_TB = BLOCKS.register("sound_barrier_3_white_tb", () -> new SoundBarrier2(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_3_BLUE_NORMAL = BLOCKS.register("sound_barrier_3_blue_normal", () -> new SoundBarrier2(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> SOUND_BARRIER_3_BLUE_TB = BLOCKS.register("sound_barrier_3_blue_tb", () -> new SoundBarrier2(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> ROAD_NAME_SIGN_RC = BLOCKS.register("road_name_sign_rc", () -> new RoadNameSignBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ROAD_NAME_SIGN_RA = BLOCKS.register("road_name_sign_ra", () -> new RoadNameSignBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ROAD_NAME_SIGN_POLE = BLOCKS.register("road_name_sign_pole", () -> new InstrumentPoleLongitudinal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> INSTRUMENT_POLE_FOUNDATIONS = BLOCKS.register("instrument_pole_foundations", () -> new InstrumentPoleFoundations(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> INSTRUMENT_POLE_LONGITUDINAL = BLOCKS.register("instrument_pole_longitudinal", () -> new InstrumentPoleLongitudinal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> INSTRUMENT_CAMERA = BLOCKS.register("instrument_camera", () -> new InstrumentCamera(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> INSTRUMENT_FEE_DISPLAY = BLOCKS.register("instrument_fee_display", () -> new InstrumentFeeDisplay(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> INSTRUMENT_LANE_INDICATOR = BLOCKS.register("instrument_lane_indicator", () -> new InstrumentLaneIndicator(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> INSTRUMENT_STROBE_LIGHT = BLOCKS.register("instrument_strobe_light", () -> new InstrumentStrobeLight(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_IRON = BLOCKS.register("road_railings_iron", () -> new RoadRailings(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_IRON_ENDING_1 = BLOCKS.register("road_railings_iron_ending_1", () -> new RoadRailings(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_IRON_ENDING_2 = BLOCKS.register("road_railings_iron_ending_2", () -> new RoadRailings(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_IRON_POLE = BLOCKS.register("road_railings_iron_pole", () -> new RoadRailingsPole(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_IRON_OBLIQUE = BLOCKS.register("road_railings_iron_oblique", () -> new RoadRailingsOblique(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_GREEN = BLOCKS.register("road_railings_green", () -> new RoadRailings(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_GREEN_ENDING_1 = BLOCKS.register("road_railings_green_ending_1", () -> new RoadRailings(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_GREEN_ENDING_2 = BLOCKS.register("road_railings_green_ending_2", () -> new RoadRailings(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_GREEN_POLE = BLOCKS.register("road_railings_green_pole", () -> new RoadRailingsPole(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> ROAD_RAILINGS_GREEN_OBLIQUE = BLOCKS.register("road_railings_green_oblique", () -> new RoadRailingsOblique(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+
+
+    public static final RegistrySupplier<Block> RUBBISH_BIN_WHITE = BLOCKS.register("rubbish_bin_white", () -> new RubbishBinWhite(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> RUBBISH_BIN_GRAY_GREEN = BLOCKS.register("rubbish_bin_gray_green", () -> new RubbishBinGrayGreen(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).strength(1.25F, 4.2F).requiresCorrectToolForDrops().noOcclusion()));
+
+
+    public static final RegistrySupplier<Block> SPIKED_BELT = BLOCKS.register("spiked_belt", () -> new SpikedBelt(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> RISING_BOLLARD = BLOCKS.register("rising_bollard", () -> new RisingBollard(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> CORNER_GUARD_BLACK = BLOCKS.register("corner_guard_black", () -> new CornerGuard(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> CORNER_GUARD_BLACK_LEFT = BLOCKS.register("corner_guard_black_left", () -> new CornerGuard(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> CORNER_GUARD_BLACK_RIGHT = BLOCKS.register("corner_guard_black_right", () -> new CornerGuard(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> CALTROP_RED = BLOCKS.register("caltrop_red", () -> new CaltropBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistrySupplier<Block> CALTROP_YELLOW = BLOCKS.register("caltrop_yellow", () -> new CaltropBlock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).noOcclusion().requiresCorrectToolForDrops()));
+
+    public static final RegistrySupplier<Block> ROAD_WARNING_POLE_RED = BLOCKS.register("road_warning_pole_red", () -> new RoadWarningPole(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ROAD_WARNING_POLE_YELLOW = BLOCKS.register("road_warning_pole_yellow", () -> new RoadWarningPole(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> ROAD_WARNING_POLE_GREEN = BLOCKS.register("road_warning_pole_green", () -> new RoadWarningPole(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_STANDARD_YELLOW = BLOCKS.register("counterfeit_roadblock_standard_yellow", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_STANDARD_RED = BLOCKS.register("counterfeit_roadblock_standard_red", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_ENHANCED_YELLOW = BLOCKS.register("counterfeit_roadblock_enhanced_yellow", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_ENHANCED_RED = BLOCKS.register("counterfeit_roadblock_enhanced_red", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_EASY_YELLOW = BLOCKS.register("counterfeit_roadblock_easy_yellow", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_EASY_RED = BLOCKS.register("counterfeit_roadblock_easy_red", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_EASY_LINE = BLOCKS.register("counterfeit_roadblock_easy_line", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> COUNTERFEIT_ROADBLOCK_SIMPLE_YELLOW = BLOCKS.register("counterfeit_roadblock_simple_yellow", () -> new CounterfeitRoadblock(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> IRON_HORSE_YELLOW = BLOCKS.register("iron_horse_yellow", () -> new IronHorse(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> IRON_HORSE_RED = BLOCKS.register("iron_horse_red", () -> new IronHorse(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> IRON_HORSE_WHITE = BLOCKS.register("iron_horse_white", () -> new IronHorse(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> IRON_HORSE_GRAY = BLOCKS.register("iron_horse_gray", () -> new IronHorse(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static final RegistrySupplier<Block> BARRIER_GATE_1_MAIN = BLOCKS.register("barrier_gate_1_main", () -> new BarrierGate1Main(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> BARRIER_GATE_1_MAIN_SLAB = BLOCKS.register("barrier_gate_1_main_slab", () -> new BarrierGate1MainSlab(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> BARRIER_GATE_1_POLE_HORIZONTAL = BLOCKS.register("barrier_gate_1_pole_horizontal", () -> new BarrierGate1PoleHorizontal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistrySupplier<Block> BARRIER_GATE_1_POLE_LONGITUDINAL = BLOCKS.register("barrier_gate_1_pole_longitudinal", () -> new BarrierGate1PoleLongitudinal(VersionServices.blocks().copyProperties(Blocks.CYAN_TERRACOTTA).requiresCorrectToolForDrops().noOcclusion()));
+
+    public static void init() {
+        BLOCKS.register();
+    }
+}

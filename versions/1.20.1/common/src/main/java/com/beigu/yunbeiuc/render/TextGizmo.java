@@ -2,16 +2,14 @@ package com.beigu.yunbeiuc.render;
 
 import com.beigu.yunbeiuc.entity.CustomSignBlockEntity.TextLineData;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.BufferRenderer;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import net.minecraft.client.renderer.GameRenderer;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,8 +146,13 @@ public final class TextGizmo {
         if (bs <= 1e-6f) return;
         frame = new Matrix4f(lineFrame);
         try {
-            frameInv = new Matrix4f(lineFrame).invert();
-            baseFrameInv = new Matrix4f(baseFrame).invert();
+            frameInv = new Matrix4f(lineFrame);
+            baseFrameInv = new Matrix4f(baseFrame);
+            if (Math.abs(frameInv.determinant()) < 1e-9f || Math.abs(baseFrameInv.determinant()) < 1e-9f) {
+                throw new IllegalStateException("Non-invertible text transform");
+            }
+            frameInv.invert();
+            baseFrameInv.invert();
         } catch (RuntimeException e) {
             frameInv = null;
             baseFrameInv = null;
@@ -224,7 +227,7 @@ public final class TextGizmo {
                     }
                 }
                 default -> {
-                    Vector3f p = frame.transformPosition(new Vector3f(h.lx * bs * sx, -h.ly * bs * sy, 0f));
+                    Vector3f p = transformPosition(frame, new Vector3f(h.lx * bs * sx, -h.ly * bs * sy, 0f));
                     float[] g = projectGui(p.x, p.y, p.z);
                     if (g != null) {
                         float dx = (float) mx - g[0], dy = (float) my - g[1];
@@ -244,13 +247,13 @@ public final class TextGizmo {
         if (!isFresh() || baseFrameInv == null) return null;
         Vector4f[] ray = viewRayPoints(mx, my);
         if (ray == null) return null;
-        Vector4f ob4 = baseFrameInv.transform(new Vector4f(ray[0].x, ray[0].y, ray[0].z, 1f));
+        Vector4f ob4 = transform(baseFrameInv, new Vector4f(ray[0].x, ray[0].y, ray[0].z, 1f));
         if (Math.abs(ob4.w) < 1e-9f) return null;
         ob4.div(ob4.w);
-        Vector3f db = baseFrameInv.transformDirection(new Vector3f(ray[1].x - ray[0].x, ray[1].y - ray[0].y, ray[1].z - ray[0].z));
+        Vector3f db = transformDirection(baseFrameInv, new Vector3f(ray[1].x - ray[0].x, ray[1].y - ray[0].y, ray[1].z - ray[0].z));
         if (db.lengthSquared() < 1e-12f) return null;
         db.normalize();
-        Vector3f u = baseFrameInv.transformDirection(axisDirView(axis));
+        Vector3f u = transformDirection(baseFrameInv, axisDirView(axis));
         if (u.lengthSquared() < 1e-10f) return null;
         u.normalize();
         Vector3f cb = new Vector3f(offPxX / 16f, offPxY / 16f, offPxZ / 16f);
@@ -294,10 +297,10 @@ public final class TextGizmo {
         Vector3f dv = new Vector3f(ray[1].x - ray[0].x, ray[1].y - ray[0].y, ray[1].z - ray[0].z);
         if (dv.lengthSquared() < 1e-12f) return null;
         dv.normalize();
-        Vector4f of = frameInv.transform(new Vector4f(ray[0].x, ray[0].y, ray[0].z, 1f));
+        Vector4f of = transform(frameInv, new Vector4f(ray[0].x, ray[0].y, ray[0].z, 1f));
         if (Math.abs(of.w) < 1e-9f) return null;
         of.div(of.w);
-        Vector3f df = frameInv.transformDirection(new Vector3f(dv));
+        Vector3f df = transformDirection(frameInv, new Vector3f(dv));
         if (Math.abs(df.z) < 1e-6f) return null;
         float t = -of.z / df.z;
         return new float[]{of.x + t * df.x, of.y + t * df.y};
@@ -308,13 +311,14 @@ public final class TextGizmo {
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableDepthTest();
         RenderSystem.disableCull();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buf = tessellator.getBuffer();
-        buf.begin(VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder buf = tesselator.getBuilder();
+        buf.begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR);
 
         Matrix4f m = new Matrix4f();
+        m.identity();
         Vector3f center = center();
 
         if (mode == MODE_POSITION || mode == MODE_ROTATION) {
@@ -330,13 +334,13 @@ public final class TextGizmo {
             }
         } else if (mode == MODE_SCALE) {
             for (H h : HANDLES) {
-                Vector3f p = frame.transformPosition(new Vector3f(h.lx * bs * d.getScaleX(), -h.ly * bs * d.getScaleY(), 0f));
+                Vector3f p = transformPosition(frame, new Vector3f(h.lx * bs * d.getScaleX(), -h.ly * bs * d.getScaleY(), 0f));
                 boolean hot = h.id == hoverId || h.id == grabId;
                 disc(buf, m, p, hot ? 0.065f : 0.05f, 255, hot ? 255 : 214, hot ? 90 : 40, 255);
             }
         }
 
-        BufferRenderer.drawWithGlobalProgram(buf.end());
+        BufferUploader.drawWithShader(buf.end());
 
         RenderSystem.enableDepthTest();
         RenderSystem.enableCull();
@@ -345,14 +349,16 @@ public final class TextGizmo {
 
     private static Vector4f[] viewRayPoints(double mx, double my) {
         if (proj == null) return null;
-        var win = MinecraftClient.getInstance().getWindow();
-        if (win.getScaledWidth() <= 0 || win.getScaledHeight() <= 0) return null;
-        float ndcX = (float) mx / win.getScaledWidth() * 2f - 1f;
-        float ndcY = 1f - (float) my / win.getScaledHeight() * 2f;
+        var win = Minecraft.getInstance().getWindow();
+        if (win.getGuiScaledWidth() <= 0 || win.getGuiScaledHeight() <= 0) return null;
+        float ndcX = (float) mx / win.getGuiScaledWidth() * 2f - 1f;
+        float ndcY = 1f - (float) my / win.getGuiScaledHeight() * 2f;
         try {
-            Matrix4f invP = new Matrix4f(proj).invert();
-            Vector4f n = invP.transform(new Vector4f(ndcX, ndcY, -1f, 1f));
-            Vector4f f = invP.transform(new Vector4f(ndcX, ndcY, 1f, 1f));
+            Matrix4f invP = new Matrix4f(proj);
+            if (Math.abs(invP.determinant()) < 1e-9f) return null;
+            invP.invert();
+            Vector4f n = transform(invP, new Vector4f(ndcX, ndcY, -1f, 1f));
+            Vector4f f = transform(invP, new Vector4f(ndcX, ndcY, 1f, 1f));
             if (Math.abs(n.w) < 1e-9f || Math.abs(f.w) < 1e-9f) return null;
             n.div(n.w);
             f.div(f.w);
@@ -363,7 +369,7 @@ public final class TextGizmo {
     }
 
     private static Vector3f center() {
-        return frame.transformPosition(new Vector3f());
+        return transformPosition(frame, new Vector3f());
     }
 
     public static void addLineRect(Matrix4f viewMatrix, int index, float lx0, float ly0, float lw, float lh, float unitX, float unitY) {
@@ -372,14 +378,14 @@ public final class TextGizmo {
         for (int k = 0; k < 4; k++) {
             float lx = lx0 + (k & 1) * lw;
             float ly = ly0 + ((k >> 1) & 1) * lh;
-            Vector3f v = viewMatrix.transformPosition(new Vector3f(lx * unitX, ly * unitY, 0f));
+            Vector3f v = transformPosition(viewMatrix, new Vector3f(lx * unitX, ly * unitY, 0f));
             Vector4f p = new Vector4f(v.x, v.y, v.z, 1f);
-            proj.transform(p);
+            transformInPlace(proj, p);
             if (p.w < 0.05f) return;
             depth += p.w;
-            var win = MinecraftClient.getInstance().getWindow();
-            float gx = (p.x / p.w * 0.5f + 0.5f) * win.getScaledWidth();
-            float gy = (0.5f - p.y / p.w * 0.5f) * win.getScaledHeight();
+            var win = Minecraft.getInstance().getWindow();
+            float gx = (p.x / p.w * 0.5f + 0.5f) * win.getGuiScaledWidth();
+            float gy = (0.5f - p.y / p.w * 0.5f) * win.getGuiScaledHeight();
             minX = Math.min(minX, gx);
             minY = Math.min(minY, gy);
             maxX = Math.max(maxX, gx);
@@ -405,12 +411,12 @@ public final class TextGizmo {
     private static float[] projectGui(float vx, float vy, float vz) {
         if (proj == null) return null;
         Vector4f p = new Vector4f(vx, vy, vz, 1f);
-        proj.transform(p);
+        transformInPlace(proj, p);
         if (p.w < 0.05f) return null;
-        var win = MinecraftClient.getInstance().getWindow();
+        var win = Minecraft.getInstance().getWindow();
         return new float[]{
-                (p.x / p.w * 0.5f + 0.5f) * win.getScaledWidth(),
-                (0.5f - p.y / p.w * 0.5f) * win.getScaledHeight()
+                (p.x / p.w * 0.5f + 0.5f) * win.getGuiScaledWidth(),
+                (0.5f - p.y / p.w * 0.5f) * win.getGuiScaledHeight()
         };
     }
 
@@ -429,7 +435,7 @@ public final class TextGizmo {
             case 1 -> new Vector3f(0f, 1f, 0f);
             default -> new Vector3f(0f, 0f, 1f);
         };
-        frame.transformDirection(v);
+        transformDirection(frame, v);
         return v.normalize();
     }
 
@@ -515,6 +521,65 @@ public final class TextGizmo {
     }
 
     private static void vert(BufferBuilder buf, Matrix4f m, Vector3f p, int r, int g, int b, int a) {
-        buf.vertex(m, p.x, p.y, p.z).color(r, g, b, a).next();
+        buf.vertex(m, p.x, p.y, p.z).color(r, g, b, a).endVertex();
+    }
+
+    private static Vector4f transform(Matrix4f matrix, Vector4f value) {
+        transformInPlace(matrix, value);
+        return value;
+    }
+
+    private static void transformInPlace(Matrix4f matrix, Vector4f value) {
+        org.joml.Vector4f result = new org.joml.Vector4f(value.x, value.y, value.z, value.w);
+        matrix.transform(result);
+        value.x = result.x();
+        value.y = result.y();
+        value.z = result.z();
+        value.w = result.w();
+    }
+
+    private static Vector3f transformPosition(Matrix4f matrix, Vector3f value) {
+        Vector4f result = transform(matrix, new Vector4f(value.x, value.y, value.z, 1f));
+        return new Vector3f(result.x / result.w, result.y / result.w, result.z / result.w);
+    }
+
+    private static Vector3f transformDirection(Matrix4f matrix, Vector3f value) {
+        Vector4f result = transform(matrix, new Vector4f(value.x, value.y, value.z, 0f));
+        return value.set(result.x, result.y, result.z);
+    }
+
+    private static final class Vector4f {
+        float x, y, z, w;
+
+        Vector4f(float x, float y, float z, float w) {
+            this.x = x; this.y = y; this.z = z; this.w = w;
+        }
+
+        void div(float value) {
+            x /= value; y /= value; z /= value; w /= value;
+        }
+    }
+
+    private static final class Vector3f {
+        float x, y, z;
+
+        Vector3f() { this(0f, 0f, 0f); }
+        Vector3f(float x, float y, float z) { this.x = x; this.y = y; this.z = z; }
+        Vector3f(Vector3f other) { this(other.x, other.y, other.z); }
+
+        Vector3f set(float x, float y, float z) { this.x = x; this.y = y; this.z = z; return this; }
+        Vector3f set(Vector3f other) { return set(other.x, other.y, other.z); }
+        Vector3f add(Vector3f other) { x += other.x; y += other.y; z += other.z; return this; }
+        Vector3f sub(Vector3f other) { x -= other.x; y -= other.y; z -= other.z; return this; }
+        Vector3f mul(float value) { x *= value; y *= value; z *= value; return this; }
+        float dot(Vector3f other) { return x * other.x + y * other.y + z * other.z; }
+        float lengthSquared() { return dot(this); }
+        Vector3f normalize() { float length = (float) Math.sqrt(lengthSquared()); return length > 0f ? mul(1f / length) : this; }
+        Vector3f cross(Vector3f other) {
+            float newX = y * other.z - z * other.y;
+            float newY = z * other.x - x * other.z;
+            float newZ = x * other.y - y * other.x;
+            return set(newX, newY, newZ);
+        }
     }
 }
